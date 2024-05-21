@@ -33,6 +33,10 @@ namespace TicTacToe
             {
                 GameState = currentPlayer == Player.X ? GameState.PlayerXWin : GameState.PlayerYWin;
             }
+            else if (CheckDraw())
+            {
+                GameState = GameState.Draw;
+            }
 
             SwitchCurrentPlayer();
 
@@ -63,6 +67,11 @@ namespace TicTacToe
                     .Cells
                     .Where((_, index) => combination.Contains(index))
                     .All(cell => cell == (byte)currentPlayer));
+        }
+
+        private bool CheckDraw()
+        {
+            return field.Cells.All(cell => cell != 0);
         }
     }
 }

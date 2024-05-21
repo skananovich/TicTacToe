@@ -134,5 +134,37 @@ namespace TicTacToe.Tests
 
             gameEngine.GameState.Should().Be(GameState.PlayerXWin);
         }
+
+        [TestCase(1, 4, 2, 5, 6, 3, 7, 8, 9)]
+        [TestCase(1, 5, 3, 2, 8, 9, 6, 4, 7)]
+        public void Game_Must_End_In_A_Draw_With_A_Draw_Combination_Of_Moves(
+            int xMove1, int oMove1,
+            int xMove2, int oMove2,
+            int xMove3, int oMove3,
+            int xMove4, int oMove4,
+            int xMove5)
+        {
+            var playerXMove1 = new PlayerMove() { CellNumber = xMove1 };
+            var playerOMove1 = new PlayerMove() { CellNumber = oMove1 };
+            var playerXMove2 = new PlayerMove() { CellNumber = xMove2 };
+            var playerOMove2 = new PlayerMove() { CellNumber = oMove2 };
+            var playerXMove3 = new PlayerMove() { CellNumber = xMove3 };
+            var playerOMove3 = new PlayerMove() { CellNumber = oMove3 };
+            var playerXMove4 = new PlayerMove() { CellNumber = xMove4 };
+            var playerOMove4 = new PlayerMove() { CellNumber = oMove4 };
+            var playerXMove5 = new PlayerMove() { CellNumber = xMove5 };
+
+            gameEngine.HandlePlayerMove(playerXMove1);
+            gameEngine.HandlePlayerMove(playerOMove1);
+            gameEngine.HandlePlayerMove(playerXMove2);
+            gameEngine.HandlePlayerMove(playerOMove2);
+            gameEngine.HandlePlayerMove(playerXMove3);
+            gameEngine.HandlePlayerMove(playerOMove3);
+            gameEngine.HandlePlayerMove(playerXMove4);
+            gameEngine.HandlePlayerMove(playerOMove4);
+            gameEngine.HandlePlayerMove(playerXMove5);
+
+            gameEngine.GameState.Should().Be(GameState.Draw);
+        }
     }
 }
