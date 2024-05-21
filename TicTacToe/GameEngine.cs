@@ -55,7 +55,8 @@ namespace TicTacToe
 
         private bool ValidatePlayerMove(PlayerMove playerMove)
         {
-            return playerMove.CellNumber > 0 
+            return GameState == GameState.InProgress
+                && playerMove.CellNumber > 0 
                 && playerMove.CellNumber <= Field.FieldSize
                 && field.Cells[playerMove.CellNumber - 1] == 0;
         }

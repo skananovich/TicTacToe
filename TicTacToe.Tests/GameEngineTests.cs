@@ -166,5 +166,25 @@ namespace TicTacToe.Tests
 
             gameEngine.GameState.Should().Be(GameState.Draw);
         }
+
+        [Test]
+        public void Player_Cannot_Make_A_Move_After_Winning()
+        {
+            var playerXMove1 = new PlayerMove() { CellNumber = 1 };
+            var playerOMove1 = new PlayerMove() { CellNumber = 4 };
+            var playerXMove2 = new PlayerMove() { CellNumber = 2 };
+            var playerOMove2 = new PlayerMove() { CellNumber = 5 };
+            var playerXMove3 = new PlayerMove() { CellNumber = 3 };
+            var playerOMove3 = new PlayerMove() { CellNumber = 6 };
+
+            gameEngine.HandlePlayerMove(playerXMove1);
+            gameEngine.HandlePlayerMove(playerOMove1);
+            gameEngine.HandlePlayerMove(playerXMove2);
+            gameEngine.HandlePlayerMove(playerOMove2);
+            gameEngine.HandlePlayerMove(playerXMove3);
+            var result = gameEngine.HandlePlayerMove(playerOMove3);
+
+            result.Should().BeFalse();
+        }
     }
 }
