@@ -15,6 +15,13 @@ namespace TicTacToe
             ArgumentNullException.ThrowIfNull(playerMove);
 
             field.Cells[playerMove.CellNumber - 1] = (byte)currentPlayer;
+
+            SwitchCurrentPlayer();
+        }
+
+        private void SwitchCurrentPlayer()
+        {
+            currentPlayer = currentPlayer == Player.X ? Player.O : Player.X;
         }
     }
 }

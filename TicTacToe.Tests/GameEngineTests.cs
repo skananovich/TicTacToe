@@ -55,5 +55,17 @@ namespace TicTacToe.Tests
 
             gameEngine.Field.Cells[0].Should().Be((byte)Player.X);
         }
+
+        [Test]
+        public void PlayerO_Goes_Second()
+        {
+            var playerXMove = new PlayerMove() { CellNumber = 1 };
+            var playerYMove = new PlayerMove() { CellNumber = 2 };
+
+            gameEngine.HandlePlayerMove(playerXMove);
+            gameEngine.HandlePlayerMove(playerYMove);
+
+            gameEngine.Field.Cells[1].Should().Be((byte)Player.O);
+        }
     }
 }
