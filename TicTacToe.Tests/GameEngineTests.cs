@@ -89,5 +89,50 @@ namespace TicTacToe.Tests
 
             result.Should().BeFalse();
         }
+
+        [Test]
+        public void Player_Can_Move_Again_After_An_Incorrect_Move()
+        {
+            var playerXMove = new PlayerMove() { CellNumber = 3 };
+            var playerOMove1 = new PlayerMove() { CellNumber = 3 };
+            var playerOMove2 = new PlayerMove() { CellNumber = 4 };
+
+            gameEngine.HandlePlayerMove(playerXMove);
+            gameEngine.HandlePlayerMove(playerOMove1);
+            gameEngine.HandlePlayerMove(playerOMove2);
+
+            gameEngine.Field.Cells[3].Should().Be((byte)Player.O);
+        }
+
+        // Horizontal combinations
+        [TestCase(1, 4, 2, 5, 3)]
+        [TestCase(4, 1, 5, 2, 6)]
+        [TestCase(7, 1, 8, 2, 9)]
+        // Vertical combinations
+        [TestCase(1, 2, 4, 5, 7)]
+        [TestCase(2, 3, 5, 6, 8)]
+        [TestCase(3, 2, 6, 5, 9)]
+        // Diagonal combinations
+        [TestCase(1, 2, 5, 3, 9)]
+        [TestCase(3, 2, 5, 4, 7)]
+        public void Player_Must_Win_With_A_Winning_Combination_Of_Moves(
+            int xMove1, int oMove1,
+            int xMove2, int oMove2,
+            int xMove3)
+        {
+            var playerXMove1 = new PlayerMove() { CellNumber = xMove1 };
+            var playerOMove1 = new PlayerMove() { CellNumber = oMove1 };
+            var playerXMove2 = new PlayerMove() { CellNumber = xMove2 };
+            var playerOMove2 = new PlayerMove() { CellNumber = oMove2 };
+            var playerXMove3 = new PlayerMove() { CellNumber = xMove3 };
+
+            gameEngine.HandlePlayerMove(playerXMove1);
+            gameEngine.HandlePlayerMove(playerOMove1);
+            gameEngine.HandlePlayerMove(playerXMove2);
+            gameEngine.HandlePlayerMove(playerOMove2);
+            gameEngine.HandlePlayerMove(playerXMove3);
+
+            gameEngine.GameState.Should().Be(GameState.PlayerXWin);
+        }
     }
 }
