@@ -2,7 +2,8 @@
 {
     public enum GameState
     {
-        InProgress,
+        PlayerXMove,
+        PlayerYMove,
         PlayerXWin,
         PlayerYWin,
         Draw

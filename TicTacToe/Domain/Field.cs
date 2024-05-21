@@ -4,16 +4,16 @@
     {
         public const int FieldSize = 9;
 
-        public List<byte> Cells { get; set; } =
-            [0,0,0,
-             0,0,0,
-             0,0,0];
+        public List<Player> Cells { get; set; } =
+            [Player.None,Player.None,Player.None,
+             Player.None,Player.None,Player.None,
+             Player.None,Player.None,Player.None];
 
         public Field() { }
 
-        private Field(List<byte> cells)
+        private Field(List<Player> cells)
         {
-            Cells = new List<byte>(cells);
+            Cells = new List<Player>(cells);
         }
 
         public Field Clone()

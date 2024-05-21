@@ -4,7 +4,7 @@ namespace TicTacToe
 {
     public class GameEngine
     {
-        private readonly Field field = new Field();
+        private readonly Field field = new();
         private readonly List<List<int>> WinCombination =
             [
                 // Rows
@@ -15,10 +15,8 @@ namespace TicTacToe
                 [0, 4, 8], [2, 4, 6]
             ];
 
-        private Player currentPlayer = Player.X;
-
         public Field Field { get { return field.Clone(); } }
-        public GameState GameState { get; private set; } = GameState.InProgress;
+        public GameState GameState { get; private set; } = GameState.PlayerXMove;
 
         public bool HandlePlayerMove(PlayerMove playerMove)
         {
@@ -31,48 +29,56 @@ namespace TicTacToe
 
             if (CheckWin())
             {
-                GameState = currentPlayer == Player.X ? GameState.PlayerXWin : GameState.PlayerYWin;
+                GameState = GameState == GameState.PlayerXMove ? GameState.PlayerXWin : GameState.PlayerYWin;
             }
             else if (CheckDraw())
             {
                 GameState = GameState.Draw;
             }
-
-            SwitchCurrentPlayer();
+            else
+            {
+                SwitchCurrentPlayer();
+            }
 
             return true;
         }
 
         private void MarkMoveOnField(PlayerMove playerMove)
         {
-            field.Cells[playerMove.CellNumber - 1] = (byte)currentPlayer;
+            field.Cells[playerMove.CellNumber - 1] = GetCurrentPlayer();
         }
 
         private void SwitchCurrentPlayer()
         {
-            currentPlayer = currentPlayer == Player.X ? Player.O : Player.X;
+            GameState = GameState == GameState.PlayerXMove ? GameState.PlayerYMove : GameState.PlayerXMove;
         }
 
         private bool ValidatePlayerMove(PlayerMove playerMove)
         {
-            return GameState == GameState.InProgress
+            return (GameState == GameState.PlayerXMove || GameState == GameState.PlayerYMove)
                 && playerMove.CellNumber > 0 
                 && playerMove.CellNumber <= Field.FieldSize
-                && field.Cells[playerMove.CellNumber - 1] == 0;
+                && field.Cells[playerMove.CellNumber - 1] == Player.None;
         }
 
         private bool CheckWin()
         {
+            var currentPlayer = GetCurrentPlayer();
             return WinCombination.Any(
                 combination => field
                     .Cells
                     .Where((_, index) => combination.Contains(index))
-                    .All(cell => cell == (byte)currentPlayer));
+                    .All(cell => cell == currentPlayer));
         }
 
         private bool CheckDraw()
         {
-            return field.Cells.All(cell => cell != 0);
+            return field.Cells.All(cell => cell != Player.None);
+        }
+
+        private Player GetCurrentPlayer()
+        {
+            return GameState == GameState.PlayerXMove ? Player.X : Player.O;
         }
     }
 }

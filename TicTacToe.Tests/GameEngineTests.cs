@@ -23,7 +23,7 @@ namespace TicTacToe.Tests
         [Test]
         public void Field_Is_Empty_At_The_Start_Of_The_Game()
         {
-            gameEngine.Field.Cells.Should().OnlyContain(item => item == 0);
+            gameEngine.Field.Cells.Should().OnlyContain(item => item == Player.None);
         }
 
         [Test]
@@ -49,29 +49,29 @@ namespace TicTacToe.Tests
         [Test]
         public void PlayerX_Goes_First()
         {
-            var playerMove = new PlayerMove() { CellNumber = 1 };
+            var playerMove = new PlayerMove { CellNumber = 1 };
 
             gameEngine.HandlePlayerMove(playerMove);
 
-            gameEngine.Field.Cells[0].Should().Be((byte)Player.X);
+            gameEngine.Field.Cells[0].Should().Be(Player.X);
         }
 
         [Test]
         public void PlayerO_Goes_Second()
         {
-            var playerXMove = new PlayerMove() { CellNumber = 1 };
-            var playerYMove = new PlayerMove() { CellNumber = 2 };
+            var playerXMove = new PlayerMove { CellNumber = 1 };
+            var playerYMove = new PlayerMove { CellNumber = 2 };
 
             gameEngine.HandlePlayerMove(playerXMove);
             gameEngine.HandlePlayerMove(playerYMove);
 
-            gameEngine.Field.Cells[1].Should().Be((byte)Player.O);
+            gameEngine.Field.Cells[1].Should().Be(Player.O);
         }
 
         [Test]
         public void Moving_Outside_The_Field_Is_Not_Allowed()
         {
-            var playerXMove = new PlayerMove() { CellNumber = 15 };
+            var playerXMove = new PlayerMove { CellNumber = 15 };
 
             var result = gameEngine.HandlePlayerMove(playerXMove);
 
@@ -81,8 +81,8 @@ namespace TicTacToe.Tests
         [Test]
         public void Move_To_Occupied_Cell_Is_Not_Allowed()
         {
-            var playerXMove = new PlayerMove() { CellNumber = 3 };
-            var playerOMove = new PlayerMove() { CellNumber = 3 };
+            var playerXMove = new PlayerMove { CellNumber = 3 };
+            var playerOMove = new PlayerMove { CellNumber = 3 };
 
             gameEngine.HandlePlayerMove(playerXMove);
             var result = gameEngine.HandlePlayerMove(playerOMove);
@@ -93,15 +93,15 @@ namespace TicTacToe.Tests
         [Test]
         public void Player_Can_Move_Again_After_An_Incorrect_Move()
         {
-            var playerXMove = new PlayerMove() { CellNumber = 3 };
-            var playerOMove1 = new PlayerMove() { CellNumber = 3 };
-            var playerOMove2 = new PlayerMove() { CellNumber = 4 };
+            var playerXMove = new PlayerMove { CellNumber = 3 };
+            var playerOMove1 = new PlayerMove { CellNumber = 3 };
+            var playerOMove2 = new PlayerMove { CellNumber = 4 };
 
             gameEngine.HandlePlayerMove(playerXMove);
             gameEngine.HandlePlayerMove(playerOMove1);
             gameEngine.HandlePlayerMove(playerOMove2);
 
-            gameEngine.Field.Cells[3].Should().Be((byte)Player.O);
+            gameEngine.Field.Cells[3].Should().Be(Player.O);
         }
 
         // Horizontal combinations
@@ -120,11 +120,11 @@ namespace TicTacToe.Tests
             int xMove2, int oMove2,
             int xMove3)
         {
-            var playerXMove1 = new PlayerMove() { CellNumber = xMove1 };
-            var playerOMove1 = new PlayerMove() { CellNumber = oMove1 };
-            var playerXMove2 = new PlayerMove() { CellNumber = xMove2 };
-            var playerOMove2 = new PlayerMove() { CellNumber = oMove2 };
-            var playerXMove3 = new PlayerMove() { CellNumber = xMove3 };
+            var playerXMove1 = new PlayerMove { CellNumber = xMove1 };
+            var playerOMove1 = new PlayerMove { CellNumber = oMove1 };
+            var playerXMove2 = new PlayerMove { CellNumber = xMove2 };
+            var playerOMove2 = new PlayerMove { CellNumber = oMove2 };
+            var playerXMove3 = new PlayerMove { CellNumber = xMove3 };
 
             gameEngine.HandlePlayerMove(playerXMove1);
             gameEngine.HandlePlayerMove(playerOMove1);
@@ -144,15 +144,15 @@ namespace TicTacToe.Tests
             int xMove4, int oMove4,
             int xMove5)
         {
-            var playerXMove1 = new PlayerMove() { CellNumber = xMove1 };
-            var playerOMove1 = new PlayerMove() { CellNumber = oMove1 };
-            var playerXMove2 = new PlayerMove() { CellNumber = xMove2 };
-            var playerOMove2 = new PlayerMove() { CellNumber = oMove2 };
-            var playerXMove3 = new PlayerMove() { CellNumber = xMove3 };
-            var playerOMove3 = new PlayerMove() { CellNumber = oMove3 };
-            var playerXMove4 = new PlayerMove() { CellNumber = xMove4 };
-            var playerOMove4 = new PlayerMove() { CellNumber = oMove4 };
-            var playerXMove5 = new PlayerMove() { CellNumber = xMove5 };
+            var playerXMove1 = new PlayerMove { CellNumber = xMove1 };
+            var playerOMove1 = new PlayerMove { CellNumber = oMove1 };
+            var playerXMove2 = new PlayerMove { CellNumber = xMove2 };
+            var playerOMove2 = new PlayerMove { CellNumber = oMove2 };
+            var playerXMove3 = new PlayerMove { CellNumber = xMove3 };
+            var playerOMove3 = new PlayerMove { CellNumber = oMove3 };
+            var playerXMove4 = new PlayerMove { CellNumber = xMove4 };
+            var playerOMove4 = new PlayerMove { CellNumber = oMove4 };
+            var playerXMove5 = new PlayerMove { CellNumber = xMove5 };
 
             gameEngine.HandlePlayerMove(playerXMove1);
             gameEngine.HandlePlayerMove(playerOMove1);
@@ -170,12 +170,12 @@ namespace TicTacToe.Tests
         [Test]
         public void Player_Cannot_Make_A_Move_After_Winning()
         {
-            var playerXMove1 = new PlayerMove() { CellNumber = 1 };
-            var playerOMove1 = new PlayerMove() { CellNumber = 4 };
-            var playerXMove2 = new PlayerMove() { CellNumber = 2 };
-            var playerOMove2 = new PlayerMove() { CellNumber = 5 };
-            var playerXMove3 = new PlayerMove() { CellNumber = 3 };
-            var playerOMove3 = new PlayerMove() { CellNumber = 6 };
+            var playerXMove1 = new PlayerMove { CellNumber = 1 };
+            var playerOMove1 = new PlayerMove { CellNumber = 4 };
+            var playerXMove2 = new PlayerMove { CellNumber = 2 };
+            var playerOMove2 = new PlayerMove { CellNumber = 5 };
+            var playerXMove3 = new PlayerMove { CellNumber = 3 };
+            var playerOMove3 = new PlayerMove { CellNumber = 6 };
 
             gameEngine.HandlePlayerMove(playerXMove1);
             gameEngine.HandlePlayerMove(playerOMove1);
