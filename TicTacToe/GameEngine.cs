@@ -4,8 +4,8 @@ namespace TicTacToe
 {
     public class GameEngine
     {
-        public readonly Field field = new Field();
-        public GameState GameState { get; private set; }
+        public readonly Field Field = new Field();
+        public GameState GameState { get; private set; } = GameState.InProgress;
 
         public void HandlePlayerMove(PlayerMove playerMove)
         {
