@@ -77,5 +77,17 @@ namespace TicTacToe.Tests
 
             result.Should().BeFalse();
         }
+
+        [Test]
+        public void Move_To_Occupied_Cell_Is_Not_Allowed()
+        {
+            var playerXMove = new PlayerMove() { CellNumber = 3 };
+            var playerOMove = new PlayerMove() { CellNumber = 3 };
+
+            gameEngine.HandlePlayerMove(playerXMove);
+            var result = gameEngine.HandlePlayerMove(playerOMove);
+
+            result.Should().BeFalse();
+        }
     }
 }
