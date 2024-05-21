@@ -67,5 +67,15 @@ namespace TicTacToe.Tests
 
             gameEngine.Field.Cells[1].Should().Be((byte)Player.O);
         }
+
+        [Test]
+        public void Moving_Outside_The_Field_Is_Not_Allowed()
+        {
+            var playerXMove = new PlayerMove() { CellNumber = 15 };
+
+            var result = gameEngine.HandlePlayerMove(playerXMove);
+
+            result.Should().BeFalse();
+        }
     }
 }

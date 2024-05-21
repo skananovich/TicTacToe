@@ -2,6 +2,8 @@
 {
     public class Field
     {
+        public const int FieldSize = 9;
+
         public List<byte> Cells { get; set; } =
             [0,0,0,
              0,0,0,
