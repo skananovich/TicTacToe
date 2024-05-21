@@ -37,5 +37,23 @@ namespace TicTacToe.Tests
         {
             gameEngine.GameState.Should().NotBe(GameState.Draw);
         }
+
+        [Test]
+        public void Invalid_Player_Move_Throws_Exception()
+        {
+            Action action = () => gameEngine.HandlePlayerMove(null);
+
+            action.Should().Throw<ArgumentNullException>();
+        }
+
+        [Test]
+        public void PlayerX_Goes_First()
+        {
+            var playerMove = new PlayerMove() { CellNumber = 1 };
+
+            gameEngine.HandlePlayerMove(playerMove);
+
+            gameEngine.Field.Cells[0].Should().Be((byte)Player.X);
+        }
     }
 }
